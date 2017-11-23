@@ -1,6 +1,6 @@
-import superagent from 'superagent';
 import { browserHistory } from 'react-router';
 import { AUTH_USER, AUTH_ERROR, DEAUTH_USER } from './types';
+import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/api';  
 
@@ -8,24 +8,22 @@ export const signinUser =  (email, password) => {
     return (dispatch) => {
 
         // Submit email/password to server
-        superagent.post(`${API_URL}/auth/signin`)
-            .send({email, password})
-        .end((err, res) => {
-            if(err) {
-                // If request is bad
-                // - Show error to user     
-                console.log('error', err)
-                dispatch(authError('Bad login info!'))
-                return;
-            }
+        axios.post(`${API_URL}/auth/signin`, {email, password})
+        .then( res => {
             // If request is good...
             // - update state to indicate authentication
             // - save JWT token
             // - redirect to route '/feature'
             
             dispatch({type: AUTH_USER});
-            localStorage.setItem('token', res.body.token);
+            localStorage.setItem('token', res.data.token);
             browserHistory.push('/feature');
+        })
+        .catch(err => {
+            // If request is bad
+            // - Show error to user     
+            console.log('error', err)
+            dispatch(authError('Bad login info!'))
         });
     }
 }
@@ -47,17 +45,16 @@ export const signOut = () => {
 
 export const signupUser = ({ email, password }) => {
     return (dispatch) => {
-        superagent.post(`${API_URL}/auth/signup`)
-        .send({email, password})
-        .end((err, response) => {
-            console.log(response);
-            if (err) {
-                return dispatch(authError(response.body.error));
-            }
 
+        axios.post(`${API_URL}/auth/signup`, {email, password})
+        .then( response => {
             dispatch({type: AUTH_USER});
-            localStorage.setItem('token', response.body.token);
+            localStorage.setItem('token', response.data.token);
             browserHistory.push('/');
+        })
+        .catch(err => {
+            console.log(JSON.stringify(err.response.data.error));
+             return dispatch(authError(err.response.data.error));
         });
     };
 };
@@ -68,16 +65,13 @@ export const authenticateByFacebook = (accessToken) => {
         // exchange facebook access token with 
         // JWT token and save in localstorage
         // then redirect to root route
-        superagent.post(`${API_URL}/auth/facebook`)
-        .send({accessToken})
-        .end((err, res) => {
-            if(err) {
-                return dispatch(authError(res.text));
-            }
-
-            localStorage.setItem('token', res.body.token)
+        axios.post(`${API_URL}/auth/facebook`, {accessToken})
+        .then(res =>  {
+            console.log(res)
+            localStorage.setItem('token', res.data.token)
             browserHistory.push('/');
             return dispatch({type: AUTH_USER});
         })
+        .catch(err => dispatch(authError(err.text)) )
     }    
 };
