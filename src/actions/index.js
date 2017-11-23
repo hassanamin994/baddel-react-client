@@ -52,13 +52,32 @@ export const signupUser = ({ email, password }) => {
         .end((err, response) => {
             console.log(response);
             if (err) {
-                dispatch(authError(response.body.error));
-                return;
+                return dispatch(authError(response.body.error));
             }
 
             dispatch({type: AUTH_USER});
             localStorage.setItem('token', response.body.token);
-            browserHistory.push('/feature');
+            browserHistory.push('/');
         });
     };
-} 
+};
+
+export const authenticateByFacebook = (accessToken) => {
+    return (dispatch) => {
+        // send access token to api to register/signup, 
+        // exchange facebook access token with 
+        // JWT token and save in localstorage
+        // then redirect to root route
+        superagent.post(`${API_URL}/auth/facebook`)
+        .send({accessToken})
+        .end((err, res) => {
+            if(err) {
+                return dispatch(authError(res.text));
+            }
+
+            localStorage.setItem('token', res.body.token)
+            browserHistory.push('/');
+            return dispatch({type: AUTH_USER});
+        })
+    }    
+};

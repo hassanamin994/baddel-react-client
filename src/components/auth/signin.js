@@ -1,6 +1,8 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions/index';
+import FacebookAuth from './facebook_auth';
+
 
 class Signin extends React.Component {
     
@@ -22,19 +24,26 @@ class Signin extends React.Component {
     render = () => {
         const { handleSubmit, fields: { email, password }} = this.props;
         return (
-           <form onSubmit={handleSubmit(this.handleFormSubmit)} >
-                <fieldset className="form-group">
-                    <label>Email</label>
-                    <input {...email} className="form-control"/>
-                </fieldset>
+            <div>
+                <div className="row">
+                    <form onSubmit={handleSubmit(this.handleFormSubmit)} >
+                        <fieldset className="form-group">
+                            <label>Email</label>
+                            <input {...email} className="form-control"/>
+                        </fieldset>
 
-                <fieldset className="form-group">
-                    <label>password</label>
-                    <input {...password} className="form-control"/>
-                </fieldset>
-                {this.renderAlert()}
-                <input type="submit" value="Sign In"/>
-            </form> 
+                        <fieldset className="form-group">
+                            <label>password</label>
+                            <input {...password} className="form-control"/>
+                        </fieldset>
+                        {this.renderAlert()}
+                        <input type="submit" value="Sign In"/>
+                    </form>
+                </div>
+                <div className="row">
+                    <FacebookAuth />
+                </div>
+            </div>                 
         );
     }
 }
