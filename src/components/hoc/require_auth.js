@@ -17,7 +17,7 @@ export default function(ComposedComponent) {
             }
         }    
         componentWillUpdate(nextPorps) {
-            if(nextPorps.authenticated) {
+            if(!nextPorps.authenticated) {
                 browserHistory.push('/signin');
             }
         }
