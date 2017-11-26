@@ -13,6 +13,7 @@ export const fetchCategories = () => {
             dispatch({type: FETCH_CATEGORIES, payload: response.data});
         })
         .catch(err => {
+            console.log(err)
             dispatch({type: FETCH_ERROR, payload: err});
         })
 

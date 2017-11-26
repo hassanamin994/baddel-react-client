@@ -7,26 +7,38 @@ import React from 'react'
 class ProductForm extends React.Component {
 
 
-    renderInputField = (field) => {
+    renderInputField = ({input, label, meta}) => {
+
         return (
             <div className="form-group">
-                <label htmlFor="exampleInputEmail1">{field.label}</label>
-                <input type="text" {...field.input} className="form-control" />
+                <label htmlFor="exampleInputEmail1">{label}</label>
+                <input type="text" {...input} className="form-control" />
+
+                {(meta.invalid && meta.touched) &&
+                    <div className="alert alert-danger">
+                        {meta.error}
+                    </div>
+                }
             </div>
         );
     };
 
-    renderCategorySelect = (field) => {
+    renderCategorySelect = ({input, label, meta}) => {
         const categories = this.props.categories;
         return (
             <div className="form-group" >
                 <label htmlFor="category">Category</label>
-                <select {...field.input} className="form-control" >
+                <select {...input} className="form-control" >
                     <option value="">-</option>
                     {categories && categories.map(
                         category => <option key={category._id} value={category._id}>{category.name}</option>
                     )}
                 </select>
+                {(meta.invalid && meta.touched) &&
+                    <div className="alert alert-danger">
+                        {meta.error}
+                    </div>
+                }
             </div>
         )
     };
@@ -147,12 +159,6 @@ class ProductForm extends React.Component {
                 />
 
                 <Field
-                    component={this.renderInputField}
-                    name="price"
-                    label="Price ( if will not trade )"
-                />
-
-                <Field
                     component={this.renderCategorySelect}
                     name="category"
                     label="Category"
@@ -164,6 +170,12 @@ class ProductForm extends React.Component {
                     name="trade_with"
                 />
 
+                <Field
+                    component={this.renderInputField}
+                    name="price"
+                    label="Price ( if will not trade )"
+                />
+                
                 <FieldArray
                     component={this.renderImageList}
                     label="Images"
@@ -179,6 +191,18 @@ class ProductForm extends React.Component {
 
 function validate(values) {
     const errors = {} ;
+    
+    if(!values.title || values.title.trim().length < 4 ) {
+        errors['title'] = 'Title field must be at least 4 characters';
+    }
+    
+    if(!values.location || values.location.trim().length < 4 ) {
+        errors['location'] = 'Location field must be at least 4 characters'
+    }
+
+    if(!values.category) {
+        errors['category'] = 'Category field cannot be empty';
+    }
 
     return errors;
 }
