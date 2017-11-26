@@ -5,7 +5,14 @@ import React from 'react'
 
 
 class ProductForm extends React.Component {
+    
+    constructor(props) {
 
+        super(props);
+        if(props.product) {
+            props.initialValues = product;
+        }
+    }
 
     renderInputField = ({input, label, meta}) => {
 
@@ -216,8 +223,7 @@ export default reduxForm({
     validate,
     fields: ['title', 'location', 'trade_with', 'category', 'images'],
     initialValues: {
-        'trade_with': [''],
-        
+        'trade_with': [''],   
     }
 })(
     connect(mapStateToProps)(ProductForm)

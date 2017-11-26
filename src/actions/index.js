@@ -2,7 +2,7 @@ import { browserHistory } from 'react-router';
 import { AUTH_USER, AUTH_ERROR, DEAUTH_USER } from './types';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api';  
+export const API_URL = 'http://localhost:3000/api';  
 
 export const signinUser =  (email, password) => {
     return (dispatch) => {
@@ -15,7 +15,7 @@ export const signinUser =  (email, password) => {
             // - save JWT token
             // - redirect to route '/feature'
             
-            dispatch({type: AUTH_USER});
+            dispatch({type: AUTH_USER, payload: res.data.user});
             localStorage.setItem('token', res.data.token);
             browserHistory.push('/feature');
         })
@@ -48,7 +48,7 @@ export const signupUser = ({ email, password }) => {
 
         axios.post(`${API_URL}/auth/signup`, {email, password})
         .then( response => {
-            dispatch({type: AUTH_USER});
+            dispatch({ type: AUTH_USER, payload: response.data.user });
             localStorage.setItem('token', response.data.token);
             browserHistory.push('/');
         })
@@ -70,7 +70,7 @@ export const authenticateByFacebook = (accessToken) => {
             console.log(res)
             localStorage.setItem('token', res.data.token)
             browserHistory.push('/');
-            return dispatch({type: AUTH_USER});
+            return dispatch({ type: AUTH_USER, payload: res.data.user });
         })
         .catch(err => dispatch(authError(err.text)) )
     }    
