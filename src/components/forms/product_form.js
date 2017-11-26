@@ -1,5 +1,6 @@
-import { reduxForm, Field, FieldArray } from 'redux-form';
+import { reduxForm, Field, FieldArray, arrayPush } from 'redux-form';
 import { connect } from 'react-redux';
+import ImageList from '../common/imageList.js';
 import React from 'react'
 
 
@@ -31,10 +32,6 @@ class ProductForm extends React.Component {
     };
 
     renderTradewith = ({fields, meta, label}) => {
-        console.log('fields is ', fields);
-        if(fields.length  == 0) {
-            fields.push();
-        };
 
         return (
             <div className="form-group">
@@ -50,19 +47,85 @@ class ProductForm extends React.Component {
                                 className="form-control"
                             />
                             <span className="input-group-btn">
-                                <input type="button" value="-" className="btn btn-danger" onClick={() => fields.remove(index)} />
+                                <input 
+                                    type="button" 
+                                    value="-" 
+                                    className="btn btn-danger" 
+                                    onClick={() => fields.remove(index)} 
+                                />
                             </span>
                         </div>
                     </div>
                 )}
                 <br/>
                 <div>
-                    <input type="button" value="Add another" className="btn btn-success pull-right" onClick={() =>fields.push()} />
+                    <input 
+                        type="button" 
+                        value="Add another" 
+                        className="btn btn-success pull-right" 
+                        onClick={() =>fields.push()} 
+                    />
                 </div>
             </div>
         );
     }
 
+    renderImage = (field) => {
+        return <img src={field.input.value} className="img img-thumbnail" alt="product-image" />
+        
+    }
+
+    renderImageList = ({fields, meta, label}) => {
+
+        return (
+            <div>
+                <label> {label}: </label> <br/>
+                <div className="row">
+                    {fields && fields.map((image, index) => 
+                        <div className="col-xs-3" key={index}>
+                            <button 
+                                type="button" 
+                                className="close" 
+                                aria-label="Close"
+                                onClick={() => fields.remove(index)}    
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {image}
+                            <Field component={this.renderImage} name={image} />
+                        </div>
+                    
+                    )}
+                </div>
+                <br/>
+                <div className="row">
+                    <input 
+                        type="file" 
+                        className="form-control" 
+                        onChange={(e) => this.addImage(e)}
+                    />
+                </div>
+            </div>
+        );
+    }
+
+    addImage = (e, fields) => {
+        const files = e.target.files;
+
+        if(files && files.length > 0) {
+            for(var i =0 ; i < files.length; i++ ) {
+                var reader = new FileReader();
+                reader.readAsDataURL(files[i]);
+                reader.onload =  () => {
+                    this.props.dispatch(arrayPush('productForm', 'images', reader.result));
+                };
+                // reader.onerror = function (error) {
+                //     console.log('Error: ', error);
+                // };
+            }
+        }
+    }
+    
     submitProduct = (values) => {
         console.log('values after submit', values);
     }
@@ -100,6 +163,12 @@ class ProductForm extends React.Component {
                     label="Trade with"
                     name="trade_with"
                 />
+
+                <FieldArray
+                    component={this.renderImageList}
+                    label="Images"
+                    name="images"
+                />
                 
                 <button type="submit" className="btn btn-primary" > Submit </button>
             </form>
@@ -121,7 +190,11 @@ function mapStateToProps(state) {
 export default reduxForm({
     form: 'productForm',
     validate,
-    fields: ['title', 'location', 'trade_with', 'category']
+    fields: ['title', 'location', 'trade_with', 'category', 'images'],
+    initialValues: {
+        'trade_with': [''],
+        
+    }
 })(
     connect(mapStateToProps)(ProductForm)
 )
