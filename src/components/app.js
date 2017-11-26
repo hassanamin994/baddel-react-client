@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import Header from './header';
 import { connect } from 'react-redux';
-import { fetchCategories } from '../actions/categories';
+import NavbarContainer from '../containers/navbarContainer';
+
 
 class App extends Component {
-
-  componentDidMount = () => {
-    this.props.fetchCategories();
-  }
 
   render() {
     return (
       <div>
           <Header />
+          <NavbarContainer />
           {this.props.children}
       </div>
     );
@@ -20,4 +18,4 @@ class App extends Component {
 }
 
 
-export default connect(null, { fetchCategories })(App);
+export default App;
