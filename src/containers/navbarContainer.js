@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../components/navbar';
 import { fetchCategories } from '../actions/categories';
+import { getCategoriesSelector } from '../reducers/categories';
 import { connect } from 'react-redux';
 
 
@@ -18,7 +19,7 @@ class NavbarContainer extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return {categories: state.categories};
+    return {categories: getCategoriesSelector(state)};
 }
 
 export default connect(mapStateToProps, {fetchCategories})(NavbarContainer);

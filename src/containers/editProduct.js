@@ -1,9 +1,9 @@
 import React from 'react'
-import ProductForm from '../forms/product_form';
-import { fetchProduct } from '../../actions/products';
+import ProductForm from '../components/forms/product_form';
+import { fetchProduct } from '../actions/products';
 import { connect } from 'react-redux';
-import Require_Auth from '../hoc/require_auth';
-import LoadingComponent from '../common/loading';
+import Require_Auth from '../components/hoc/require_auth';
+import LoadingComponent from '../components/common/loading';
 import { browserHistory } from 'react-router';
 
 class EditProduct extends React.Component {
@@ -26,7 +26,9 @@ class EditProduct extends React.Component {
             return <LoadingComponent />
         }
         return (
-            <div> Edit product </div>
+            <div> 
+                <ProductForm mode='edit' product={this.props.product} />
+            </div>
         )
     }
 }

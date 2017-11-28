@@ -14,9 +14,9 @@ import Signup from './components/auth/signup';
 import Feature from './components/feature';
 import Home from './components/home';
 
-import Products from './components/product/product';
-import EditProduct from './components/product/editProduct';
-import ProductForm from './components/forms/product_form';
+import Products from './components/product';
+import EditProduct from './containers/editProduct';
+import NewProduct from './containers/newProduct';
 
 
 import reducers from './reducers';
@@ -29,7 +29,7 @@ const store = createStoreWithMiddleware(reducers);
 
 // Authenticate user if already logged in
 const token = localStorage.getItem('token');
-
+console.log(token)
 if (token) {
   axios.get(`${API_URL}/users/me`, { headers: { authorization: token }})
   .then(res => {
@@ -40,6 +40,8 @@ if (token) {
     store.dispatch({ type: DEAUTH_USER });
     renderDOM();
   })
+} else {
+  renderDOM();
 }
 
 function renderDOM() {
@@ -54,8 +56,9 @@ function renderDOM() {
         <Route path="signup" component={Signup} />
         <Route path="feature" component={Require_Auth(Feature)} />
         <Route path="products" component={Products} >
-          <Route path="new" component={ProductForm} mode="new" />
+          <Route path="new" component={NewProduct} />
           <Route path=":id/edit" component={EditProduct} />
+          <Route path=":id" component={EditProduct} />
 
         </Route >
       </Route>

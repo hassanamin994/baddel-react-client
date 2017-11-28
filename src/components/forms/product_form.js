@@ -1,16 +1,25 @@
 import { reduxForm, Field, FieldArray, arrayPush } from 'redux-form';
 import { connect } from 'react-redux';
-import ImageList from '../common/imageList.js';
 import React from 'react'
-
+import * as actions from '../../actions/products';
 
 class ProductForm extends React.Component {
     
     constructor(props) {
 
         super(props);
-        if(props.product) {
-            props.initialValues = product;
+        console.log(props)
+        
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const product = nextProps.product;
+        if(product) {
+            // nextProps.initialValues = nextProps.product;
+            // Object.keys(product).forEach(key => {
+            //     nextProps.initialValues[key] = product[key];
+            // });
+            this.props.initialize(product)
         }
     }
 
@@ -147,6 +156,13 @@ class ProductForm extends React.Component {
     
     submitProduct = (values) => {
         console.log('values after submit', values);
+        const { mode } = this.props;
+        switch(mode) {
+            case 'new':
+                this.props.createProduct(values);
+                break;
+        }
+
     }
 
     render() {
@@ -224,7 +240,8 @@ export default reduxForm({
     fields: ['title', 'location', 'trade_with', 'category', 'images'],
     initialValues: {
         'trade_with': [''],   
-    }
+    },
+    enableReinitialize: true
 })(
-    connect(mapStateToProps)(ProductForm)
+    connect(mapStateToProps, actions )(ProductForm)
 )

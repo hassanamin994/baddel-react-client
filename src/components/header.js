@@ -19,6 +19,7 @@ class Header extends React.Component{
         return (
             <li className="nav-item">
                 <Link to="/signout">Sign Out</Link>
+                <Link to="/products/new">Add Product</Link>
             </li>
         )
     }
