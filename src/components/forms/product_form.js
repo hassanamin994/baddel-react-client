@@ -1,7 +1,6 @@
 import { reduxForm, Field, FieldArray, arrayPush } from 'redux-form';
 import { connect } from 'react-redux';
 import React from 'react'
-import * as actions from '../../actions/products';
 
 class ProductForm extends React.Component {
     
@@ -156,12 +155,7 @@ class ProductForm extends React.Component {
     
     submitProduct = (values) => {
         console.log('values after submit', values);
-        const { mode } = this.props;
-        switch(mode) {
-            case 'new':
-                this.props.createProduct(values);
-                break;
-        }
+        this.props.onFormSubmit(values);
 
     }
 
@@ -243,5 +237,5 @@ export default reduxForm({
     },
     enableReinitialize: true
 })(
-    connect(mapStateToProps, actions )(ProductForm)
+    connect(mapStateToProps)(ProductForm)
 )
