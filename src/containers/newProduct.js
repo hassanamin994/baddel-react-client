@@ -21,4 +21,4 @@ class NewProduct extends React.Component {
 }
 
 
-export default connect(null, { createProduct })(NewProduct);
+export default connect(null, { createProduct })(RequireAuth(NewProduct));
