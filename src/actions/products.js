@@ -32,13 +32,36 @@ export const createProduct = (product) => {
         })
         .catch(err => {
             console.log(err);
-            dispatch({ type: PRODUCT_ERROR, payload: 'Something went wrong while creating the product ' + err });
+            dispatch(productError('Something went wrong while creating the product ' + err ));
+        })
+    }
+}
+
+export const editProduct = (id, values) => {
+    const headers = getHeaders();
+
+    return (dispatch) => {
+        axios.patch(`${API_ROOT}/products/${id}`, values, { headers } )
+        .then(product => {
+            console.log(product);
+            const newProduct = product.data;
+            dispatch({ type: CREATE_PRODUCT, payload: newProduct });
+            browserHistory.push(`/products/${id}`);            
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch(productError('Something went wrong while updating the product ' + err ))
         })
     }
 }
 
 
-
+const productError = (err) => {
+    return {
+        type: PRODUCT_ERROR,
+        payload: err
+    };
+}
 
 function getHeaders() {
 

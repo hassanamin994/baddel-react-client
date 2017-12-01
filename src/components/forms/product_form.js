@@ -1,4 +1,4 @@
-import { reduxForm, Field, FieldArray, arrayPush } from 'redux-form';
+import { reduxForm, Field, FieldArray, arrayPush, change } from 'redux-form';
 import { connect } from 'react-redux';
 import React from 'react'
 
@@ -8,17 +8,28 @@ class ProductForm extends React.Component {
 
         super(props);
         console.log(props)
-        
     }
+    
+    // componentDidMount() {
+    //     console.log('product', this.props);
+    //     const { product } = this.props;
+    //     if(product) {
+    //         Object.keys(product).forEach(key => {
+    //             this.props.change(key, product[key]);
+    //         })            
+    //     }
+    // }
 
     componentWillReceiveProps(nextProps) {
         const product = nextProps.product;
-        if(product) {
-            // nextProps.initialValues = nextProps.product;
-            // Object.keys(product).forEach(key => {
-            //     nextProps.initialValues[key] = product[key];
-            // });
-            this.props.initialize(product)
+        console.log('component will receive props');
+    //     // console.log(this.props)
+        if(product && !this.props.initialized) {
+            if(product) {
+                Object.keys(product).forEach(key => {
+                    this.props.change(key, product[key]);
+                })            
+            }
         }
     }
 
@@ -228,6 +239,12 @@ function mapStateToProps(state) {
     return { categories: state.categories };
 }
 
+const mapDispatch = (dispatch) => {
+    return {
+        changeFieldValue: (field, value) => dispatch(change('productForm', field, value))
+    }
+}
+
 export default reduxForm({
     form: 'productForm',
     validate,
@@ -237,5 +254,5 @@ export default reduxForm({
     },
     enableReinitialize: true
 })(
-    connect(mapStateToProps)(ProductForm)
+    connect(mapStateToProps, mapDispatch)(ProductForm)
 )
