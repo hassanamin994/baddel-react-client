@@ -1,2 +1,1 @@
--add require_auth to new product
 -add description field to product form
