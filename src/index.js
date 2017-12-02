@@ -12,7 +12,7 @@ import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
 import Feature from './components/feature';
-import Home from './components/home';
+import HomeContainer from './containers/homeContainer';
 
 import Products from './components/product';
 import EditProduct from './containers/editProduct';
@@ -50,7 +50,7 @@ function renderDOM() {
   <Provider store={store}>
     <Router history={browserHistory} >
       <Route path="/" component={App}>
-        <IndexRoute component={Home} />
+        <IndexRoute component={HomeContainer} />
         <Route path="signin" component={Signin} />
         <Route path="signout" component={Signout} />
         <Route path="signup" component={Signup} />

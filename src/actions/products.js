@@ -1,4 +1,4 @@
-import { FETCH_PRODUCT, PRODUCT_ERROR, CREATE_PRODUCT } from './types';
+import { FETCH_PRODUCT, PRODUCT_ERROR, CREATE_PRODUC, FETCH_PRODUCTS } from './types';
 import { browserHistory } from 'react-router';
 import { API_ROOT } from '../config/index';
 import axios from 'axios';
@@ -54,6 +54,25 @@ export const editProduct = (id, values) => {
         })
     }
 }
+
+export const fetchProducts = (page) => {
+    return (dispatch) => {
+        const params = { page };
+        axios.get(`${API_ROOT}/products`, { params })
+        .then(products => {
+            console.log(products);
+
+            dispatch({
+                type: FETCH_PRODUCTS,
+                payload: products.data
+            });
+        })
+        .catch(err => {
+            dispatch(productError('Error while fetching products'))
+            console.log(err)
+        });
+    }
+} 
 
 
 const productError = (err) => {

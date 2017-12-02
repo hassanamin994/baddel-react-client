@@ -1,3 +1,14 @@
 import React from 'react';
 
-export default () => <div>Welcome </div>;
+class Home extends React.Component {
+
+    render() {
+        console.log(this.props.products)
+        return (
+            <div>Home</div>
+        )
+    }
+}
+
+
+export default Home;

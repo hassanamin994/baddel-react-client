@@ -23,7 +23,7 @@ export default class Navbar extends React.Component {
             <nav className="navbar navbar-inverse">
                 <div className="container-fluid">
                     <div className="navbar-header">
-                        <a className="navbar-brand" href="#">WebSiteName</a>
+                        <Link className="navbar-brand" to="/">WebSiteName</Link>
                     </div>
                     <ul className="nav navbar-nav navbar-right">
                         {items.map(item => this.renderItem(item))}

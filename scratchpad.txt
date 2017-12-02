@@ -1,1 +1,3 @@
--add description field to product form
+- Home page 
+- Categories page
+- Search feature

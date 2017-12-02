@@ -1,13 +1,15 @@
-import { FETCH_PRODUCT, CREATE_PRODUCT, PRODUCT_ERROR } from '../actions/types';
+import { FETCH_PRODUCT, FETCH_PRODUCTS, CREATE_PRODUCT, PRODUCT_ERROR } from '../actions/types';
 
 export default function(state = {}, action) {
     switch(action.type) {
         case FETCH_PRODUCT:
-            return { ...state, currentProduct: action.payload };
+            return { ...state, error: '', currentProduct: action.payload };
         case CREATE_PRODUCT: 
-            return { ...state, currentProduct: action.paload}
+            return { ...state, error: '', currentProduct: action.paload };
         case PRODUCT_ERROR: 
-            return { ...state, error: action.payload}
+            return { ...state, error: action.payload };
+        case FETCH_PRODUCTS:
+            return { ...state, error: '', products: action.payload };
             
     }
 
