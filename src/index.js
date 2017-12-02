@@ -29,7 +29,6 @@ const store = createStoreWithMiddleware(reducers);
 
 // Authenticate user if already logged in
 const token = localStorage.getItem('token');
-console.log(token)
 if (token) {
   axios.get(`${API_URL}/users/me`, { headers: { authorization: token }})
   .then(res => {

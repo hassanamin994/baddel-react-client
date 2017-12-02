@@ -25,7 +25,6 @@ export const createProduct = (product) => {
     return (dispatch) => {
         axios.post(`${API_ROOT}/products`, product, { headers })
         .then(product => {
-            console.log(product);
             const newProduct = product.data;
             dispatch({ type: CREATE_PRODUCT, payload: newProduct });
             browserHistory.push(`/products/${newProduct._id}`);
@@ -43,7 +42,6 @@ export const editProduct = (id, values) => {
     return (dispatch) => {
         axios.patch(`${API_ROOT}/products/${id}`, values, { headers } )
         .then(product => {
-            console.log(product);
             const newProduct = product.data;
             dispatch({ type: CREATE_PRODUCT, payload: newProduct });
             browserHistory.push(`/products/${id}`);            
@@ -60,7 +58,6 @@ export const fetchProducts = (page) => {
         const params = { page };
         axios.get(`${API_ROOT}/products`, { params })
         .then(products => {
-            console.log(products);
 
             dispatch({
                 type: FETCH_PRODUCTS,

@@ -9,7 +9,6 @@ export const fetchCategories = () => {
 
         axios.get(`${API_ROOT}/categories`, { headers })
         .then(response => {
-            console.log(response);
             dispatch({type: FETCH_CATEGORIES, payload: response.data});
         })
         .catch(err => {

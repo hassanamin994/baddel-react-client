@@ -53,7 +53,6 @@ export const signupUser = ({ email, password }) => {
             browserHistory.push('/');
         })
         .catch(err => {
-            console.log(JSON.stringify(err.response.data.error));
              return dispatch(authError(err.response.data.error));
         });
     };
@@ -67,7 +66,6 @@ export const authenticateByFacebook = (accessToken) => {
         // then redirect to root route
         axios.post(`${API_URL}/auth/facebook`, {accessToken})
         .then(res =>  {
-            console.log(res)
             localStorage.setItem('token', res.data.token)
             browserHistory.push('/');
             return dispatch({ type: AUTH_USER, payload: res.data.user });
