@@ -3,6 +3,7 @@ import Carousel from './common/carousel';
 import Sidebar from './sidebar';
 import Slider from './common/slider';
 import ProductCard from './common/productCard';
+import ProductGrid from './common/productGrid';
 
 class Home extends React.Component {
 
@@ -18,6 +19,7 @@ class Home extends React.Component {
                     <div className="span9">
                         <Carousel />
                         <Slider /> 
+                        <ProductGrid products={this.props.products} />
                     </div>
                 </div>
                 
