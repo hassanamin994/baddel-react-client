@@ -52,7 +52,7 @@ function renderDOM() {
         <IndexRoute component={HomeContainer} />
         <Route path="signin" component={Signin} />
         <Route path="signout" component={Signout} />
-        <Route path="signup" component={Signup} />
+        <Route path="register" component={Signup} />
         <Route path="feature" component={Require_Auth(Feature)} />
         <Route path="products" component={Products} >
           <Route path="new" component={NewProduct} />
