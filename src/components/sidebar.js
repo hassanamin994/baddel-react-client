@@ -29,7 +29,7 @@ class Sidebar extends React.Component {
                         only valid for online order. <br /><br /><a className="defaultBtn" href="#">Click here </a>
                     </p>
                 </div>
-                <div className="well well-small" ><a href="#"><img src="assets/img/paypal.jpg" alt="payment method paypal" /></a></div>
+                <div className="well well-small" ><a href="#"><img src="/assets/img/paypal.jpg" alt="payment method paypal" /></a></div>
                 
                 <a className="shopBtn btn-block" href="#">Upcoming products <br /><small>Click to view</small></a>
                 <br />
@@ -38,7 +38,7 @@ class Sidebar extends React.Component {
                 <li>
                 <div className="thumbnail">
                     <a className="zoomTool" href="product_details.html" title="add to cart"><span className="icon-search"></span> QUICK VIEW</a>
-                    <img src="assets/img/bootstrap-ecommerce-templates.png" alt="bootstrap ecommerce templates" />
+                    <img src="/assets/img/bootstrap-ecommerce-templates.png" alt="bootstrap ecommerce templates" />
                     <div className="caption">
                     <h4><a className="defaultBtn" href="product_details.html">VIEW</a> <span className="pull-right">$22.00</span></h4>
                     </div>
@@ -48,7 +48,7 @@ class Sidebar extends React.Component {
                 <li>
                 <div className="thumbnail">
                     <a className="zoomTool" href="product_details.html" title="add to cart"><span className="icon-search"></span> QUICK VIEW</a>
-                    <img src="assets/img/shopping-cart-template.png" alt="shopping cart template" />
+                    <img src="/assets/img/shopping-cart-template.png" alt="shopping cart template" />
                     <div className="caption">
                     <h4><a className="defaultBtn" href="product_details.html">VIEW</a> <span className="pull-right">$22.00</span></h4>
                     </div>
@@ -58,7 +58,7 @@ class Sidebar extends React.Component {
                 <li>
                 <div className="thumbnail">
                     <a className="zoomTool" href="product_details.html" title="add to cart"><span className="icon-search"></span> QUICK VIEW</a>
-                    <img src="assets/img/bootstrap-template.png" alt="bootstrap template" />
+                    <img src="/assets/img/bootstrap-template.png" alt="bootstrap template" />
                     <div className="caption">
                     <h4><a className="defaultBtn" href="product_details.html">VIEW</a> <span className="pull-right">$22.00</span></h4>
                     </div>
