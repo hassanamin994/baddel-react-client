@@ -8,21 +8,11 @@ import ProductGrid from './common/productGrid';
 class Home extends React.Component {
 
     render() {
-        console.log(this.props.products)
         return (
             <div>
-                Home
-                <div className="row">
-                    <div className="span3">
-                        <Sidebar />
-                    </div>
-                    <div className="span9">
-                        <Carousel />
-                        <Slider /> 
-                        <ProductGrid products={this.props.products} />
-                    </div>
-                </div>
-                
+                <Carousel />
+                <Slider /> 
+                <ProductGrid products={this.props.products} />
             </div>
         )
     }

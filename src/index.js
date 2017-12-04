@@ -17,7 +17,7 @@ import HomeContainer from './containers/homeContainer';
 import Products from './components/product';
 import EditProduct from './containers/editProduct';
 import NewProduct from './containers/newProduct';
-
+import ProductDetails from './components/productDetails';
 
 import reducers from './reducers';
 import Require_Auth from './components/hoc/require_auth';
@@ -57,7 +57,7 @@ function renderDOM() {
         <Route path="products" component={Products} >
           <Route path="new" component={NewProduct} />
           <Route path=":id/edit" component={EditProduct} />
-          <Route path=":id" component={EditProduct} />
+          <Route path=":id" component={ProductDetails} />
 
         </Route >
       </Route>
