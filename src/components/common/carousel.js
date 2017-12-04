@@ -3,44 +3,44 @@ import React from 'react'
 
 class Carousel extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        // set random id for carousel to avoid conflicts
+        const carouselId = "carousel" + parseInt(Math.random() * 1000);
+        this.state = {carouselId: carouselId};
+    }
+
+    renderItems = () => {
+        const images = this.props.images;
+
+        if(!images || images.length < 1) {
+            return ;
+        }
+
+        return this.props.images.map((img, index) => {
+            return (
+                <div className={index == 0 ? 'item active': 'item' } key={img.txt || Math.random() * 100}>
+                    <img style={{width:'100%'}} src={img.src} />
+                    { img.text &&
+                     <div className="carousel-caption">
+                            <h4>{img.text}</h4>
+                            {/*<p><span>Highly Google seo friendly</span></p>*/}
+                    </div> }
+                </div>
+            );
+        })
+    }
+
     render() {
         return (
-            <div className="well np">
-                <div id="myCarousel" className="carousel slide homCar">
+                <div id={this.state.carouselId} className="carousel slide homCar">
                     <div className="carousel-inner">
-                        <div className="item">
-                            <img style={{width:'100%'}} src="/assets/img/bootstrap_free-ecommerce.png" alt="bootstrap ecommerce templates" />
-                            <div className="carousel-caption">
-                                    <h4>Bootstrap shopping cart</h4>
-                                    <p><span>Very clean simple to use</span></p>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <img style={{width:'100%'}} src="/assets/img/carousel1.png" alt="bootstrap ecommerce templates" />
-                            <div className="carousel-caption">
-                                    <h4>Bootstrap Ecommerce template</h4>
-                                    <p><span>Highly Google seo friendly</span></p>
-                            </div>
-                        </div>
-                        <div className="item active">
-                            <img style={{width:'100%'}} src="/assets/img/carousel3.png" alt="bootstrap ecommerce templates" />
-                            <div className="carousel-caption">
-                                    <h4>Twitter Bootstrap cart</h4>
-                                    <p><span>Very easy to integrate and expand.</span></p>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <img style={{width:'100%'}} src="/assets/img/bootstrap-templates.png" alt="bootstrap templates" />
-                            <div className="carousel-caption">
-                                    <h4>Bootstrap templates integration</h4>
-                                    <p><span>Compitable to many more opensource cart</span></p>
-                            </div>
-                        </div>
+                      {this.renderItems()}
                     </div>
-                    <a className="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                    <a className="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                    <a className="left carousel-control" href={"#" + this.state.carouselId} data-slide="prev">&lsaquo;</a>
+                    <a className="right carousel-control" href={"#" + this.state.carouselId} data-slide="next">&rsaquo;</a>
                 </div>
-            </div>
         );
     }
 }
