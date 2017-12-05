@@ -1,41 +1,46 @@
 import React from 'react';
 import Carousel from './common/carousel'; 
+import LoadingComponent from './common/loading';
+
 
 class ProductDetails extends React.Component {
 
     render() {
-        const images = [
-        ]
-        const product = {
-            "_id": "5a1e0b522057e742a3b0ca17"
-            ,
-            "updatedAt": {
-                "$date": "2017-11-29T18:22:03.170Z"
-            },
-            "createdAt": {
-                "$date": "2017-11-29T01:20:18.943Z"
-            },
-            "title": "aaaatest211111",
-            "location": "test2",
-            "user": {
-                "$oid": "5a170f24ab21642f635247fd"
-            },
-            "category": {
-                "$oid": "5a183f48f6b9b241de5540fb"
-            },
-            "trade_with": [
-                "product 1",
-                "product 2"
-            ],
-            "images": [
-                {src: '/assets/img/a.jpg'},
-                {src: '/assets/img/a.jpg'},
-                {src: '/assets/img/a.jpg'},
-                {src: '/assets/img/a.jpg'},
-            ],
-            "description": "This is some dummy product description",
-            "__v": 0
+        console.log(this.props)
+        const product = this.props.product;
+        if(!product) {
+            return <LoadingComponent />
         }
+        // const product = {
+        //     "_id": "5a1e0b522057e742a3b0ca17"
+        //     ,
+        //     "updatedAt": {
+        //         "$date": "2017-11-29T18:22:03.170Z"
+        //     },
+        //     "createdAt": {
+        //         "$date": "2017-11-29T01:20:18.943Z"
+        //     },
+        //     "title": "aaaatest211111",
+        //     "location": "test2",
+        //     "user": {
+        //         "$oid": "5a170f24ab21642f635247fd"
+        //     },
+        //     "category": {
+        //         "$oid": "5a183f48f6b9b241de5540fb"
+        //     },
+        //     "trade_with": [
+        //         "product 1",
+        //         "product 2"
+        //     ],
+        //     "images": [
+        //         {src: '/assets/img/a.jpg'},
+        //         {src: '/assets/img/a.jpg'},
+        //         {src: '/assets/img/a.jpg'},
+        //         {src: '/assets/img/a.jpg'},
+        //     ],
+        //     "description": "This is some dummy product description",
+        //     "__v": 0
+        // }
         return (
          	<div className="well well-small">
                 <div className="row-fluid">
