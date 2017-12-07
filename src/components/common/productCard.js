@@ -4,13 +4,13 @@ import { Link } from 'react-router';
 class ProductCard extends React.Component {
 
     render() {
-        const product = this.props.product;
-        console.log(product)
+        let product = this.props.product;
+        // console.log(product)
         
-        if(!product.images || product.images.length == 0 ) {
-            product.images[0] = '/assets/img/a.jpg';
+        if(!product.images || (product.images.length == 0) ) {
+            product.images = ['/assets/img/a.jpg'];
         }
-
+        
         return (
             <div>
                 <div className="thumbnail">
