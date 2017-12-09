@@ -25,6 +25,7 @@ class ProductGrid extends React.Component {
         return (
             <div className="well well-small">
                 <h3>{this.props.title}</h3>
+                {this.props.children}
                 <div className="row-fluid">
                     <ul className="thumbnails">
                         {productsLists.map(list => this.renderProductsRow(list))}
