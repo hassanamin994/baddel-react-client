@@ -6,7 +6,6 @@ class Sidebar extends React.Component {
     render() {
 
         const { categories } = this.props;
-        console.log('categories sidebar ', categories)
         return (
             <div id="sidebar">
                 <div className="well well-small">

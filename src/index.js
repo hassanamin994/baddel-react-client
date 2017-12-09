@@ -19,6 +19,8 @@ import EditProduct from './containers/editProduct';
 import NewProduct from './containers/newProduct';
 import ProductDetailsContainer from './containers/productDetailsContainer';
 
+import CategoryContainer from './containers/categoryContainer';
+
 import reducers from './reducers';
 import Require_Auth from './components/hoc/require_auth';
 import { AUTH_USER, DEAUTH_USER } from './actions/types';
@@ -60,6 +62,7 @@ function renderDOM() {
           <Route path=":id" component={ProductDetailsContainer} />
 
         </Route >
+        <Route path="categories/:id" component={CategoryContainer} />
       </Route>
     </Router>
   </Provider>
