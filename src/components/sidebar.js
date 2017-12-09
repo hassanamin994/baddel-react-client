@@ -13,7 +13,7 @@ class Sidebar extends React.Component {
                     <ul className="nav nav-list">
                         {categories.map(category =>  {
                             return <li>
-                                    <Link to={'/categories/' + category.id} >
+                                    <Link to={'/categories/' + category._id} >
                                         <span className="icon-chevron-right"></span>{category.name}
                                     </Link>
                                 </li>
