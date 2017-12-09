@@ -24,8 +24,8 @@ class Signin extends React.Component {
     render = () => {
         const { handleSubmit, fields: { email, password }} = this.props;
         return (
-            <div>
-                <div className="row">
+            <div className="container-fluid" >
+                <div className="row-fluid">
                     <form onSubmit={handleSubmit(this.handleFormSubmit)} >
                         <fieldset className="form-group">
                             <label>Email</label>
@@ -40,7 +40,7 @@ class Signin extends React.Component {
                         <input type="submit" value="Sign In"/>
                     </form>
                 </div>
-                <div className="row">
+                <div className="row-fluid">
                     <FacebookAuth />
                 </div>
             </div>                 

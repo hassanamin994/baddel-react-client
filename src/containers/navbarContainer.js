@@ -13,13 +13,13 @@ class NavbarContainer extends React.Component {
 
     render() {
         return (
-            <Navbar {... this.props } items={this.props.categories} />
+            <Navbar {... this.props } items={this.props.categories} authenticated={this.props.authenticated} />
         ); 
     }
 }
 
 function mapStateToProps(state) {
-    return {categories: getCategoriesSelector(state)};
+    return {categories: getCategoriesSelector(state), auth: state.auth};
 }
 
 export default connect(mapStateToProps, {fetchCategories})(NavbarContainer);

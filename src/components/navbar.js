@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import LoadingComponent from './common/loading';
-
+import Signin from './auth/signin';
 
 export default class Navbar extends React.Component {
 
@@ -12,12 +12,50 @@ export default class Navbar extends React.Component {
         )
     }
 
+    getDropdown = () => {
+        const { auth }= this.props;
+        let dropdown;
+        if(!auth.authenticated) {
+            dropdown = <li className="dropdown">
+                            <a data-toggle="dropdown" className="dropdown-toggle" href="#">
+                                <span className="icon-lock"></span> 
+                                Login 
+                                <b className="caret"></b>
+                            </a>
+                            <div className="dropdown-menu">
+                                <Signin />
+                            </div>
+                        </li>
+        } else {
+            dropdown = <li className="dropdown">
+                            <a data-toggle="dropdown" className="dropdown-toggle" href="#">
+                                    <div className="row">
+                                        {auth.user.name || auth.user.email} 
+                                        <b className="caret"></b>
+
+                                    </div>
+                            </a>
+                            <ul className="dropdown-menu">
+                                <li>
+                                    <Link to="/signout">Logout</Link>
+                                </li>
+                            </ul>
+                        </li>
+        }
+
+        return dropdown;
+    }
+
     render = () => {
-        var items = this.props.items;
+        console.log(this.props)
+        let  { items, auth } = this.props;
+        let dropdown = this.getDropdown();
+
         if(!items) {
             console.log('loading')
             return <LoadingComponent />
         }
+        
 
         return (
             <div className="navbar">
@@ -30,35 +68,19 @@ export default class Navbar extends React.Component {
                     </a>
                     <div className="nav-collapse">
                     <ul className="nav">
-                        <li className="active"><a href="index.html">Home	</a></li>
-                        <li className=""><a href="list-view.html">List View</a></li>
-                        <li className=""><a href="grid-view.html">Grid View</a></li>
-                        <li className=""><a href="three-col.html">Three Column</a></li>
-                        <li className=""><a href="four-col.html">Four Column</a></li>
+                        <li><Link to="/">Home</Link></li>
+                        {auth.authenticated && 
+                            <li><Link to="/products/new">Add product</Link></li>
+                        }
                     </ul>
-                    <form action="#" className="navbar-search pull-left">
-                        <input type="text" placeholder="Search" className="search-query span2" />
-                    </form>
+                    
                     <ul className="nav pull-right">
-                        <li className="dropdown">
-                            <a data-toggle="dropdown" className="dropdown-toggle" href="#"><span className="icon-lock"></span> Login <b className="caret"></b></a>
-                            <div className="dropdown-menu">
-                            <form className="form-horizontal loginFrm">
-                                <div className="control-group">
-                                <input type="text" className="span2" id="inputEmail" placeholder="Email" />
-                                </div>
-                                <div className="control-group">
-                                <input type="password" className="span2" id="inputPassword" placeholder="Password" />
-                                </div>
-                                <div className="control-group">
-                                <label className="checkbox">
-                                <input type="checkbox" /> Remember me
-                                </label>
-                                <button type="submit" className="shopBtn btn-block">Sign in</button>
-                                </div>
+                        <li>
+                            <form action="#" className="navbar-search" style={{marginRight: "15px;"}}>
+                                <input type="text" placeholder="Search" className="search-query span2" />
                             </form>
-                            </div>
                         </li>
+                        { dropdown }
                     </ul>
                     </div>
                 </div>

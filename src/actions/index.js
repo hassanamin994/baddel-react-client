@@ -28,7 +28,7 @@ export const signinUser =  (email, password) => {
     }
 }
 
-export const authError = (error) => {
+export const authError = (error) => {    
     return {
         type: AUTH_ERROR,
         payload: error
@@ -37,6 +37,7 @@ export const authError = (error) => {
 
 export const signOut = () => {
     localStorage.removeItem('token');
+    browserHistory.push('/');
     return {
         type: DEAUTH_USER
     }
