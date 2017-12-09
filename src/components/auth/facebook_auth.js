@@ -9,7 +9,7 @@ class FacebookAuth extends React.Component {
     render() {
         return  <FacebookLogin
                     appId="308382066232253"
-                    autoLoad={true}
+                    autoLoad={false}
                     fields="name,email,picture"
                     callback={this.responseFacebook} />
     }
