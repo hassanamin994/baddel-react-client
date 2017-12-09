@@ -58,7 +58,6 @@ export const fetchProducts = (page, filter) => {
         const params = { page, ...filter };
         axios.get(`${API_ROOT}/products`, { params })
         .then(products => {
-            console.log('products', params, products)
             dispatch({
                 type: FETCH_PRODUCTS,
                 payload: products.data

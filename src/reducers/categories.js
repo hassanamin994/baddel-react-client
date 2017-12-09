@@ -17,3 +17,12 @@ export const getCategoriesSelector = createSelector(
     state => state.categories,
     categories => categories
 );
+
+export const getCategory = createSelector(
+    (state) => state.categories,
+    (state, props) => props.params.id,
+    (categories, id) => {
+        console.log('categories', categories,  _.find(categories, {_id: id}))
+        return _.find(categories, {_id: id})
+    }
+)

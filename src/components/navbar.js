@@ -47,12 +47,10 @@ export default class Navbar extends React.Component {
     }
 
     render = () => {
-        console.log(this.props)
         let  { items, auth } = this.props;
         let dropdown = this.getDropdown();
 
         if(!items) {
-            console.log('loading')
             return <LoadingComponent />
         }
         
