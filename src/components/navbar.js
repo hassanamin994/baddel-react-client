@@ -1,10 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import LoadingComponent from './common/loading';
 import Signin from './auth/signin';
 
 export default class Navbar extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {searchTerm: ''};
+    }
 
     renderItem = (item) => {
         return (
@@ -45,6 +49,11 @@ export default class Navbar extends React.Component {
 
         return dropdown;
     }
+    
+    onSearchSubmit = (e) => {
+        e.preventDefault();
+        browserHistory.push(`/search?title=${this.state.searchTerm}`)
+    }
 
     render = () => {
         let  { items, auth } = this.props;
@@ -74,8 +83,13 @@ export default class Navbar extends React.Component {
                     
                     <ul className="nav pull-right">
                         <li>
-                            <form action="#" className="navbar-search" style={{marginRight: "15px;"}}>
-                                <input type="text" placeholder="Search" className="search-query span2" />
+                            <form onSubmit={this.onSearchSubmit} className="navbar-search" style={{marginRight: "15px;"}}>
+                                <input 
+                                    type="text" 
+                                    placeholder="Search" 
+                                    className="search-query span2" 
+                                    onChange={(e) => this.setState({searchTerm: e.target.value})}
+                                    />
                             </form>
                         </li>
                         { dropdown }

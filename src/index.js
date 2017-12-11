@@ -13,6 +13,7 @@ import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
 import Feature from './components/feature';
 import HomeContainer from './containers/homeContainer';
+import SearchContainer from './containers/searchContainer';
 
 import Products from './components/product';
 import EditProduct from './containers/editProduct';
@@ -56,6 +57,7 @@ function renderDOM() {
         <Route path="signout" component={Signout} />
         <Route path="register" component={Signup} />
         <Route path="feature" component={Require_Auth(Feature)} />
+        <Route path="search" component={SearchContainer} />
         <Route path="products" component={Products} >
           <Route path="new" component={NewProduct} />
           <Route path=":id/edit" component={EditProduct} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions/index';
-
+import FacebookAuth from './facebook_auth';
 
 class Signup extends React.Component {
 
@@ -10,7 +10,7 @@ class Signup extends React.Component {
             <fieldset className="form-group">
                 <label >{label}: </label>
                 <input {...field} type={type} className="form-control"/>
-                {field.touched && field.error && <div className="alert alert-danger">{field.error}</div>}
+                {field && field.touched && field.error && <div className="alert alert-danger">{field.error}</div>}
             </fieldset>
         )
     }
@@ -35,6 +35,7 @@ class Signup extends React.Component {
                 {this.renderField('Password', 'password', password)}
                 {this.renderField('Confirm password', 'password', passwordConfirm)}
                 {this.props.errorMessage && this.showAlert(this.props.errorMessage)}
+                <FacebookAuth /> <br/><br/>
                 <input type="submit" className="btn btn-success" value="Sign up!"/>
             </form>
         )
